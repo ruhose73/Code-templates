@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { createClient } from 'redis';
-import { setKeyValueDto } from './dto';
+import { ISetValue } from '../../interfaces';
 
 @Injectable()
 export class RedisService {
@@ -19,15 +19,15 @@ export class RedisService {
     this.client.connect();
   }
 
-  async set(dto: setKeyValueDto) {
+  async set(dto: ISetValue): Promise<void> {
     if (dto.ttl !== undefined) {
-      await this.setKeyValueWithTTL(dto);
+      return await this.setKeyValueWithTTL(dto);
     } else {
-      await this.setKeyValueWithoutTTL(dto);
+      return await this.setKeyValueWithoutTTL(dto);
     }
   }
 
-  async get(key: string) {
+  async get(key: string): Promise<object> {
     try {
       const value = await this.client.GET(key);
       return JSON.parse(value);
@@ -36,25 +36,29 @@ export class RedisService {
     }
   }
 
-  async delete(key: string) {
+  async delete(key: string): Promise<void> {
     try {
-      await this.client.DEL(key);
+      return await this.client.DEL(key);
     } catch (e) {
       this.logger.error(`REDIS DEL ERROR: ${e.message}`);
     }
   }
 
-  private async setKeyValueWithTTL(dto: setKeyValueDto) {
+  private async setKeyValueWithTTL(dto: ISetValue): Promise<void> {
     try {
-      await this.client.SETEX(dto.key, dto.ttl, JSON.stringify(dto.value));
+      return await this.client.SETEX(
+        dto.key,
+        dto.ttl,
+        JSON.stringify(dto.value),
+      );
     } catch (e) {
       this.logger.error(`REDIS SETEX ERROR: ${e.message}`);
     }
   }
 
-  private async setKeyValueWithoutTTL(dto: setKeyValueDto) {
+  private async setKeyValueWithoutTTL(dto: ISetValue): Promise<void> {
     try {
-      await this.client.SET(dto.key, JSON.stringify(dto.value));
+      return await this.client.SET(dto.key, JSON.stringify(dto.value));
     } catch (e) {
       this.logger.error(`REDIS SET ERROR: ${e.message}`);
     }
