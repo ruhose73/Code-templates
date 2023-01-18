@@ -6,11 +6,6 @@ import { ISetValue } from '../../interfaces';
 export class BaseController {
   constructor(private readonly baseService: BaseService) {}
 
-  @Get()
-  getHello(): string {
-    return this.baseService.getHello();
-  }
-
   @Post('/set')
   async setValue(@Body() dto: ISetValue): Promise<object> {
     return await this.baseService.setValue(dto);

@@ -14,7 +14,6 @@ interface IAppConfig {
   };
 }
 
-//добавить валидатор
 export default registerAs(
   'config',
   (): IAppConfig => ({

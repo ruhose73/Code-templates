@@ -5,10 +5,6 @@ import { ISetValue } from '../../interfaces';
 export class BaseService {
   constructor(private redisService: RedisService) {}
 
-  getHello(): string {
-    return 'Hello World!';
-  }
-
   async getValue(key: string): Promise<object> {
     return await this.redisService.get(key);
   }
