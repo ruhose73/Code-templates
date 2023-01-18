@@ -23,7 +23,7 @@ import { BaseService } from './base.service';
 export class BaseModule {}
 ```
 
-Service constructor
+Service
 
 ```ts
 import { Injectable } from '@nestjs/common';
@@ -55,7 +55,7 @@ export class BaseService {
 }
 ```
 
-interface ISetValue
+Interface
 
 ```ts
 export interface ISetValue {
