@@ -19,6 +19,11 @@
 * В файле `.env` установите значения `REDIS_HOST=redis` и `REDIS_PORT=6379`.
 * В папке репозитория выполните команду в терминале `docker compose -f "docker-compose.yml" up -d --build`
 
+### Тесты
+
+* Скачайте репозиторий
+* В папке репозитория выполните команду в терминале `npm run test --passWithNoTests`
+
 ### Документация
 
 <http://localhost:8080/docs#/>
