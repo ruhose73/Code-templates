@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+
+  nest:
+    container_name: nest
+    build: 
+      context: .
+    depends_on:
+      - redis
+    env_file:
+      - .env
+    volumes:
+      - .:/backend
+      - /backend/node_modules
+    networks:
+      - app
+    ports:
+      - 8080:8080
+    restart: always
+
+  redis:
+    image: redis:7.0.7
+    restart: always
+    ports:
+      - 6379
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge
