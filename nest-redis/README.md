@@ -19,6 +19,10 @@
 * В файле `.env` установите значения `REDIS_HOST=redis` и `REDIS_PORT=6379`.
 * В папке репозитория выполните команду в терминале `docker compose -f "docker-compose.yml" up -d --build`
 
+### Документация
+
+<http://localhost:8080/docs#/>
+
 ### Пример использования
 
 Module
@@ -42,7 +46,8 @@ Service
 ```ts
 import { Injectable } from '@nestjs/common';
 import { RedisService } from '../redis/redis.service';
-import { ISetValue } from '../../interfaces';
+import { SetValueDTO } from './dto';
+
 @Injectable()
 export class BaseService {
   constructor(private redisService: RedisService) {}
@@ -53,7 +58,7 @@ export class BaseService {
   }
 
   //set key value
-  async setValue(dto: ISetValue): Promise<object> {
+  async setValue(dto: SetValueDTO): Promise<object> {
     await this.redisService.set({
       key: dto.key,
       value: dto.value,
@@ -69,12 +74,18 @@ export class BaseService {
 }
 ```
 
-Interface
+DTO
 
 ```ts
-export interface ISetValue {
+export class SetValueDTO {
   key: string;
-  value: object | string;
+  value: object | string | number;
   ttl?: number;
+}
+```
+
+```ts
+export class responseValueDto {
+  value: string | number | object;
 }
 ```
