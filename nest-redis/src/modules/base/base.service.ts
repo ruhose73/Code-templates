@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { RedisService } from '../redis/redis.service';
-import { ISetValue } from '../../interfaces';
+import { SetValueDTO } from './dto';
 @Injectable()
 export class BaseService {
   constructor(private redisService: RedisService) {}
@@ -9,7 +9,7 @@ export class BaseService {
     return await this.redisService.get(key);
   }
 
-  async setValue(dto: ISetValue): Promise<object> {
+  async setValue(dto: SetValueDTO): Promise<object> {
     await this.redisService.set({
       key: dto.key,
       value: dto.value,
