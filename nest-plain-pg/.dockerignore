@@ -1,0 +1,8 @@
+.git
+.eslintrc.js
+.prettierrc
+*Dockerfile*
+*docker-compose*
+node_modules
+test
+dist

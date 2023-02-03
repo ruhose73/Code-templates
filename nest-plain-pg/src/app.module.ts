@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
-import { DbModule } from './db/db.module';
-import { BaseModule } from './base/base.module';
-
+import { DbModule } from './modules/db/db.module';
+import { BaseModule } from './modules/base/base.module';
 @Module({
   imports: [DbModule, BaseModule],
   controllers: [],
